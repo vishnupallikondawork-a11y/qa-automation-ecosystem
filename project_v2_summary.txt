@@ -1,0 +1,669 @@
+# 🚀 PROJECT_V2 — FINAL SUMMARY REPORT
+
+## 🎯 Project Name
+
+👉 `project_v2`
+
+## 🌐 Application Under Test
+
+👉 Automation Exercise
+
+---
+
+# 🧠 OBJECTIVE OF PROJECT_V2
+
+Upgrade `project_v1` from:
+
+```text id="jlwm1p"
+UI-only automation framework
+```
+
+➡ into:
+
+```text id="jlwm3q"
+Multi-layer automation framework
+```
+
+by introducing:
+
+✔ API automation
+✔ Shared framework utilities
+✔ Integration testing
+✔ Execution management
+✔ Reusable validation architecture
+
+---
+
+# 🚀 MAJOR ARCHITECTURAL IMPROVEMENTS
+
+---
+
+# ✅ 1. RESTRUCTURED FRAMEWORK
+
+---
+
+## 📁 Final Structure
+
+```bash id="jlwm5r"
+project_v2/
+│
+├── tests/
+│   ├── ui/
+│   │   ├── test_login.py
+│   │   ├── test_cart.py
+│   │
+│   ├── api/
+│   │   ├── test_login_api.py
+│   │   ├── test_products_api.py
+│   │
+│   ├── integration/
+│       ├── test_ui_api_login_flow.py
+│
+├── pages/
+│
+├── api_clients/
+│   ├── auth_api.py
+│   ├── product_api.py
+│
+├── utils/
+│   ├── api_utils.py
+│   ├── logger.py
+│   ├── execution_context.py
+│
+├── test_data/
+│   ├── login_data.py
+│   ├── product_data.py
+│
+├── test_runs/
+│
+├── conftest.py
+├── pytest.ini
+```
+
+---
+
+# 🧠 KEY FRAMEWORK DESIGN PRINCIPLE
+
+---
+
+## UI Layer
+
+```text id="jlwm7s"
+Tests → Pages
+```
+
+---
+
+## API Layer
+
+```text id="jlwm9t"
+Tests → API Clients
+```
+
+---
+
+💥 Same abstraction principle used across framework.
+
+---
+
+# 🚀 STORY 1 — API FRAMEWORK SETUP
+
+---
+
+# ✅ API Client Layer Introduced
+
+Created:
+
+```text id="jlwmbu"
+api_clients/
+```
+
+to separate:
+✔ request handling
+✔ test validations
+
+---
+
+# 📄 `auth_api.py`
+
+```python id="jlwmdv"
+import requests
+
+from utils.config import API_BASE_URL
+from utils.logger import get_logger
+
+
+class AuthAPI:
+
+    def __init__(self):
+
+        self.logger = get_logger()
+
+    def login(self, email, password):
+
+        self.logger.info(
+            "Sending login API request"
+        )
+
+        payload = {
+            "email": email,
+            "password": password
+        }
+
+        response = requests.post(
+            f"{API_BASE_URL}/verifyLogin",
+            data=payload
+        )
+
+        self.logger.info(
+            f"Response Status: "
+            f"{response.status_code}"
+        )
+
+        return response
+```
+
+---
+
+# 🚀 STORY 2 — LOGIN API AUTOMATION
+
+---
+
+# ✅ Valid Login API Test
+
+```python id="jlwmfx"
+@pytest.mark.api
+@pytest.mark.smoke
+
+def test_valid_login_api():
+
+    auth = AuthAPI()
+
+    response = auth.login(
+        VALID_USER["email"],
+        VALID_USER["password"]
+    )
+
+    response_body = response.json()
+
+    APIUtils.validate_status_code(
+        response,
+        200
+    )
+
+    APIUtils.validate_response_code(
+        response_body,
+        200
+    )
+```
+
+---
+
+# ✅ Invalid Login API Test
+
+```python id="jlwmhz"
+@pytest.mark.api
+@pytest.mark.regression
+
+def test_invalid_login_api():
+
+    auth = AuthAPI()
+
+    response = auth.login(
+        INVALID_USER["email"],
+        INVALID_USER["password"]
+    )
+
+    response_body = response.json()
+
+    APIUtils.validate_status_code(
+        response,
+        200
+    )
+
+    APIUtils.validate_response_code(
+        response_body,
+        404
+    )
+```
+
+---
+
+# 🧠 IMPORTANT LEARNING
+
+Distinction understood between:
+
+| Layer             | Example |
+| ----------------- | ------- |
+| HTTP Response     | 200     |
+| Business Response | 404     |
+
+---
+
+# 🚀 STORY 3 — PRODUCT API AUTOMATION
+
+---
+
+# 📄 `product_api.py`
+
+```python id="jlwmk1"
+import requests
+
+from utils.config import API_BASE_URL
+from utils.logger import get_logger
+
+
+class ProductAPI:
+
+    def __init__(self):
+
+        self.logger = get_logger()
+
+    def get_all_products(self):
+
+        self.logger.info(
+            "Fetching all products"
+        )
+
+        response = requests.get(
+            f"{API_BASE_URL}/productsList"
+        )
+
+        return response
+
+    def get_invalid_products(self):
+
+        response = requests.get(
+            f"{API_BASE_URL}/invalidEndpoint"
+        )
+
+        return response
+```
+
+---
+
+# 📄 `test_products_api.py`
+
+```python id="jlwmm3"
+@pytest.mark.api
+@pytest.mark.regression
+
+def test_get_all_products():
+
+    products = ProductAPI()
+
+    response = products.get_all_products()
+
+    response_body = response.json()
+
+    APIUtils.validate_status_code(
+        response,
+        200
+    )
+
+    APIUtils.validate_response_code(
+        response_body,
+        200
+    )
+
+    assert len(response_body["products"]) > 0
+
+    first_product = response_body["products"][0]
+
+    for key in EXPECTED_PRODUCT_KEYS:
+
+        APIUtils.validate_key_exists(
+            first_product,
+            key
+        )
+```
+
+---
+
+# 🧠 IMPORTANT LEARNING
+
+Validated:
+✔ list responses
+✔ response structure
+✔ reusable assertions
+✔ negative APIs
+
+---
+
+# 🚀 STORY 4 — API VALIDATION IMPROVEMENTS
+
+---
+
+# 📄 `api_utils.py`
+
+```python id="jlwmo5"
+class APIUtils:
+
+    @staticmethod
+    def validate_status_code(
+            response,
+            expected_code
+    ):
+
+        assert response.status_code == expected_code, (
+            f"Expected {expected_code}, "
+            f"got {response.status_code}"
+        )
+
+    @staticmethod
+    def validate_response_code(
+            response_body,
+            expected_code
+    ):
+
+        assert (
+            response_body["responseCode"]
+            == expected_code
+        )
+
+    @staticmethod
+    def validate_key_exists(
+            data,
+            key
+    ):
+
+        assert key in data, (
+            f"{key} not found in response"
+        )
+```
+
+---
+
+# 🧠 MAJOR FRAMEWORK IMPROVEMENT
+
+Centralized:
+✔ assertions
+✔ reusable validations
+✔ cleaner test files
+
+---
+
+# 🚀 STORY 5 — UI + API INTEGRATION
+
+---
+
+# ✅ Shared Test Data Layer
+
+Created:
+
+```text id="jlwmq7"
+test_data/
+```
+
+---
+
+# 📄 `login_data.py`
+
+```python id="jlwms9"
+VALID_USER = {
+    "email": "your_email",
+    "password": "your_password"
+}
+
+INVALID_USER = {
+    "email": "wrong@gmail.com",
+    "password": "wrong123"
+}
+```
+
+---
+
+# 📄 `product_data.py`
+
+```python id="jlwmu0"
+EXPECTED_PRODUCT_KEYS = [
+    "id",
+    "name",
+    "price"
+]
+```
+
+---
+
+# 🚀 Integration Test Introduced
+
+# 📄 `test_ui_api_login_flow.py`
+
+```python id="jlwmwa"
+@pytest.mark.integration
+@pytest.mark.smoke
+
+def test_ui_api_login_flow(driver):
+
+    driver.get(BASE_URL)
+
+    login_page = LoginPage(driver)
+
+    login_page.login(
+        VALID_USER["email"],
+        VALID_USER["password"]
+    )
+
+    assert "Logged in as" in (
+        login_page.get_logged_in_text()
+    )
+
+    auth_api = AuthAPI()
+
+    response = auth_api.login(
+        VALID_USER["email"],
+        VALID_USER["password"]
+    )
+
+    response_body = response.json()
+
+    APIUtils.validate_status_code(
+        response,
+        200
+    )
+
+    APIUtils.validate_response_code(
+        response_body,
+        200
+    )
+```
+
+---
+
+# 🧠 IMPORTANT LEARNING
+
+Implemented:
+✔ multi-layer validation
+✔ shared test data
+✔ UI + API chaining
+
+---
+
+# 🚀 EXECUTION FRAMEWORK IMPROVEMENTS
+
+---
+
+# ✅ Markers Added
+
+# 📄 `pytest.ini`
+
+```ini id="jlwmyc"
+[pytest]
+
+markers =
+    smoke: smoke tests
+    regression: regression tests
+    api: api tests
+    ui: ui tests
+    integration: integration tests
+```
+
+---
+
+# ✅ Execution Commands
+
+---
+
+## API Tests
+
+```bash id="jlwn0d"
+pytest -m api
+```
+
+---
+
+## Smoke Suite
+
+```bash id="jlwn2e"
+pytest -m smoke
+```
+
+---
+
+## Regression Suite
+
+```bash id="jlwn4f"
+pytest -m regression
+```
+
+---
+
+## Integration Suite
+
+```bash id="jlwn6g"
+pytest -m integration
+```
+
+---
+
+# 🚀 REPORTING + EXECUTION MANAGEMENT
+
+---
+
+# ✅ Timestamp-Based Execution Architecture
+
+Created:
+
+# 📄 `execution_context.py`
+
+```python id="jlwn8h"
+from datetime import datetime
+
+EXECUTION_TIMESTAMP = datetime.now().strftime(
+    "%Y%m%d_%H%M%S"
+)
+```
+
+---
+
+# ✅ Execution Folder Structure
+
+```text id="jlwnaa"
+test_runs/
+   └── timestamp/
+          ├── logs/
+          ├── screenshots/
+          ├── reports/
+```
+
+---
+
+# ✅ Screenshot Hook Updated
+
+Framework updated to:
+✔ support UI tests safely
+✔ ignore API tests without driver
+✔ avoid KeyError issues
+
+---
+
+# 📄 Screenshot Hook
+
+```python id="jlwncb"
+driver = item.funcargs.get("driver")
+
+if driver:
+    driver.save_screenshot(file_name)
+```
+
+---
+
+# 🚀 DEBUGGING IMPROVEMENTS
+
+---
+
+# ✅ VS Code Debugger Setup
+
+Implemented:
+✔ pytest debug configuration
+✔ venv interpreter mapping
+✔ breakpoint-based debugging
+
+---
+
+# 🧠 IMPORTANT LEARNINGS FROM PROJECT_V2
+
+---
+
+# ✅ API Testing Concepts
+
+* GET / POST
+* Positive + negative APIs
+* Response validation
+* Business vs HTTP responses
+
+---
+
+# ✅ Framework Concepts
+
+* Abstraction
+* Separation of concerns
+* Shared utilities
+* Centralized test data
+
+---
+
+# ✅ Execution Concepts
+
+* Markers
+* Suite execution
+* Reporting architecture
+* Artifact management
+
+---
+
+# 🎤 FINAL INTERVIEW SUMMARY
+
+You can now confidently say:
+
+> I upgraded my Selenium automation framework into a multi-layer automation system by integrating API automation using Python requests. I introduced API client abstraction, reusable validation utilities, shared test data management, integration testing, timestamp-based execution reporting, and controlled suite execution using pytest markers.
+
+---
+
+# 🚀 CURRENT STATUS
+
+## `project_v2`
+
+💥 CORE IMPLEMENTATION COMPLETE
+
+You now officially have:
+
+✔ UI automation
+✔ API automation
+✔ Integration layer
+✔ Shared utilities
+✔ Execution management
+✔ Reporting architecture
+✔ Jira workflow
+
+---
+
+# 🚀 NEXT STAGE
+
+Next epic will focus on:
+
+🔥 Test suite strategy
+🔥 CI/CD preparation
+🔥 Jenkins/GitHub Actions
+🔥 Smoke vs regression orchestration
+🔥 Production-level execution flow
