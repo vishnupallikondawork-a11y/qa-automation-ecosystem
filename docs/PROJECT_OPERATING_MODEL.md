@@ -53,3 +53,6 @@ Phase 4
 
 Current Epic:
 Epic 2 — Test Suite Strategy & Execution Management
+
+Current Story:
+STORY 2 - Regression suite architecture

@@ -1,0 +1,16 @@
+2026-05-16 21:39:50,624 - INFO - Sending login API request
+2026-05-16 21:39:52,233 - INFO - Response Status Code: 200
+2026-05-16 21:39:52,250 - INFO - Send product list API request
+2026-05-16 21:39:53,073 - INFO - Response Status Code: 200
+2026-05-16 21:39:53,079 - INFO - Sending Invalid products API request
+2026-05-16 21:39:56,837 - INFO - Clicking login link
+2026-05-16 21:39:58,129 - INFO - Entering email: your_test_email@gmail.com
+2026-05-16 21:39:58,732 - INFO - Entering password
+2026-05-16 21:39:58,868 - INFO - Clicking login button
+2026-05-16 21:40:01,586 - INFO - Sending login API request
+2026-05-16 21:40:02,629 - INFO - Response Status Code: 200
+2026-05-16 21:40:05,866 - INFO - Starting invalid login test
+2026-05-16 21:40:10,616 - INFO - Clicking login link
+2026-05-16 21:40:11,789 - INFO - Entering email: wrong@gmail.com
+2026-05-16 21:40:12,813 - INFO - Entering password
+2026-05-16 21:40:12,930 - INFO - Clicking login button

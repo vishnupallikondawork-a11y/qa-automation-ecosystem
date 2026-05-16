@@ -5,23 +5,38 @@ from utils.logger import get_logger
 
 logger = get_logger()
 
-@pytest.mark.parametrize("email, password, expected, valid",[
-    (EMAIL, PASSWORD, "Logged in as", True),
-    ("wrong@gmail.com" , "wrong123", "incorrect", False)
-])
-def test_login(driver, email, password, expected, valid):
+@pytest.mark.ui
+@pytest.mark.smoke
+def test_valid_login(driver):
 
-    logger.info("Starting test_login..")
-    logger.info("Opening application")
+    logger.info("Starting valid login test")
+
     driver.get(BASE_URL)
+
     login = LoginPage(driver)
 
-    logger.info("Performing login flow")
-    login.login(email, password)
+    login.login(EMAIL, PASSWORD)
 
-    logger.info("Validating login result")
-    if valid:
-        assert expected in login.get_logged_in_text()
-    else:
-        assert expected in login.get_error_message()
+    assert "Logged in as" in (
+        login.get_logged_in_text()
+    )
+
+@pytest.mark.ui
+@pytest.mark.regression
+def test_invalid_login(driver):
+
+    logger.info("Starting invalid login test")
+
+    driver.get(BASE_URL)
+
+    login = LoginPage(driver)
+
+    login.login(
+        "wrong@gmail.com",
+        "wrong123"
+    )
+
+    assert "incorrect" in (
+        login.get_error_message()
+    )
 
