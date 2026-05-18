@@ -1,0 +1,19 @@
+2026-05-18 14:50:45,163 - INFO - Sending login API request
+2026-05-18 14:50:46,865 - INFO - Response Status Code: 200
+2026-05-18 14:50:49,732 - INFO - Starting test_cart..
+2026-05-18 14:50:49,733 - INFO - Opening application
+2026-05-18 14:50:52,689 - INFO - Performing login flow
+2026-05-18 14:50:52,689 - INFO - Clicking login link
+2026-05-18 14:50:54,627 - INFO - Entering email: your_test_email@gmail.com
+2026-05-18 14:50:55,228 - INFO - Entering password
+2026-05-18 14:50:55,356 - INFO - Clicking login button
+2026-05-18 14:50:57,757 - INFO - Starting Add product to cart flow
+2026-05-18 14:50:57,757 - INFO - Clicking products link...
+2026-05-18 14:50:58,596 - INFO - Adding product to cart
+2026-05-18 14:51:00,872 - INFO - Opening cart
+2026-05-18 14:51:05,389 - INFO - validating cart items
+2026-05-18 14:51:09,088 - INFO - Starting valid login test
+2026-05-18 14:51:11,071 - INFO - Clicking login link
+2026-05-18 14:51:12,634 - INFO - Entering email: your_test_email@gmail.com
+2026-05-18 14:51:13,192 - INFO - Entering password
+2026-05-18 14:51:13,425 - INFO - Clicking login button

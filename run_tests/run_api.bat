@@ -4,7 +4,6 @@ cd /d %~dp0..
 
 call venv\Scripts\activate
 
-python -m pytest -m api ^
---self-contained-html
+python run_tests/run_suite.py api
 
 pause
