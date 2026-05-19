@@ -1,5 +1,5 @@
-from datetime import datetime
-
-EXECUTION_TIMESTAMP = datetime.now().strftime(
-    "%Y%m%d_%H%M%S"
-)
+import os
+def get_execution_timestamp():
+    return os.environ.get(
+        "EXECUTION_TIMESTAMP"
+    )

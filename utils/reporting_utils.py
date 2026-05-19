@@ -1,13 +1,14 @@
 from pathlib import Path
 from datetime import datetime
 
-from utils.execution_context import EXECUTION_TIMESTAMP
+
+from utils.execution_context import get_execution_timestamp
 
 class ReportingUtils:
     
     @staticmethod
     def generate_execution_summary(suite_name):
-        execution_path = Path(f"test_runs/{EXECUTION_TIMESTAMP}")
+        execution_path = Path(f"test_runs/{get_execution_timestamp()}")
         summary_file = (execution_path/ "execution_summary.txt")
         report_path = (execution_path/"reports")
         logs_path = (execution_path/"logs")
@@ -16,7 +17,7 @@ class ReportingUtils:
         summary_content = f"""
 Suite: {suite_name}
 Execution Timestamp:
-{EXECUTION_TIMESTAMP}
+{get_execution_timestamp()}
 
 Generated Time:
 {datetime.now()}
@@ -37,7 +38,7 @@ Artifacts:
         history_entry = f"""
 [{datetime.now()}]
 Suite: {suite_name}
-Execution Timestamp: {EXECUTION_TIMESTAMP}
+Execution Timestamp: {get_execution_timestamp()}
 --------------------------------------------
 """
         with open (history_file , 'a', encoding = "utf-8") as file:

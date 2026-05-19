@@ -12,7 +12,7 @@ sys.path.append(
 
 from utils.execution_config import SUITES
 from utils.reporting_utils import ReportingUtils
-
+from datetime import datetime
 def run_suite(suite_name):
 
     if suite_name not in SUITES:
@@ -22,6 +22,15 @@ def run_suite(suite_name):
             f"{list(SUITES.keys())}"
             )
         return
+    
+    execution_timestamp = (
+    datetime.now().strftime(
+        "%Y%m%d_%H%M%S"
+    )
+)
+    os.environ["EXECUTION_TIMESTAMP"] = (
+        execution_timestamp
+    )
     command = (
         f"python -m pytest -m {SUITES[suite_name]} --self-contained-html"
     )
@@ -30,6 +39,7 @@ def run_suite(suite_name):
         f"\n Executing {suite_name} suite... \n"
     )
     os.system(command)
+    
     ReportingUtils.generate_execution_summary(suite_name)
     ReportingUtils.update_execution_history(suite_name)
 

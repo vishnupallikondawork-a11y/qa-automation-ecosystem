@@ -146,3 +146,64 @@ Post deployment:
 - integration tests should not block deployments
 - execution should remain environment-independent
 - reports must remain isolated per execution
+
+✅ SECTION 9 — Execution Summary Architecture
+
+# Execution Summary Architecture
+
+Each execution automatically generates:
+
+execution_summary.txt
+
+inside the execution timestamp folder.
+
+Purpose:
+- execution traceability
+- artifact discoverability
+- centralized execution metadata
+
+Generated Information:
+- suite name
+- execution timestamp
+- report paths
+- log paths
+- screenshot paths
+
+✅ SECTION 10 — Execution History Tracking
+
+# Execution History Tracking
+
+The framework maintains:
+
+test_runs/execution_history.txt
+
+Purpose:
+- historical execution visibility
+- execution traceability
+- CI/CD execution auditing
+
+Each execution appends:
+- execution timestamp
+- suite executed
+- execution metadata
+
+✅ SECTION — Artifact Observability
+
+
+# Artifact Observability
+
+Execution artifacts are centralized inside:
+
+test_runs/
+    timestamp/
+
+Artifacts include:
+- reports
+- logs
+- screenshots
+- execution summaries
+
+Purpose:
+- execution isolation
+- debugging support
+- artifact traceability
