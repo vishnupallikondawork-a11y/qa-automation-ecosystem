@@ -26,14 +26,10 @@ Artifacts:
 - Logs: {logs_path}
 - Screenshots: {screenshots_path}
 """
-        summary_file.write_text(
-            summary_content.strip(),
-            encoding= "utf-8"
-        )
+        execution_path.mkdir(parents=True, exist_ok=True)
+        summary_file.write_text(summary_content.strip(), encoding= "utf-8")
 
-        print(
-            "\n Execution summary generated. \n"
-        )
+        print("\n Execution summary generated. \n")
     
     @staticmethod
     def update_execution_history(suite_name):
