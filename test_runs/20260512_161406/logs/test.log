@@ -1,8 +1,0 @@
-2026-05-12 16:14:06,779 - INFO - Sending login API request
-2026-05-12 16:14:08,676 - INFO - Response Status Code: 200
-2026-05-12 16:14:33,515 - INFO - Clicking login link
-2026-05-12 16:14:35,384 - INFO - Entering email: your_test_email@gmail.com
-2026-05-12 16:14:35,758 - INFO - Entering password
-2026-05-12 16:14:36,215 - INFO - Clicking login button
-2026-05-12 16:15:22,144 - INFO - Sending login API request
-2026-05-12 16:15:23,546 - INFO - Response Status Code: 200
