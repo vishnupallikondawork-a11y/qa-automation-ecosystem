@@ -21,6 +21,9 @@ def test_get_all_products():
     APIUtils.validate_key_exists(first_product,"name")
     APIUtils.validate_key_exists(first_product,"price")
 
+@pytest.mark.api
+@pytest.mark.regression
+
 def test_invalid_products_api():
     product_api = ProductAPI()
     response = product_api.get_invalid_products_api()

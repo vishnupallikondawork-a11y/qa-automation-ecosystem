@@ -2,10 +2,10 @@ import pytest
 from selenium import webdriver
 import os
 from datetime import datetime
-from utils.execution_context import EXECUTION_TIMESTAMP
+from utils.execution_context import get_execution_timestamp
 
 RUN_FOLDER = (
-    f"test_runs/{EXECUTION_TIMESTAMP}"
+    f"test_runs/{get_execution_timestamp()}"
 )
 
 SCREENSHOT_FOLDER = (

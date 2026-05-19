@@ -1,7 +1,7 @@
 import logging
 import os
 from datetime import datetime
-from utils.execution_context import EXECUTION_TIMESTAMP
+from utils.execution_context import get_execution_timestamp
 
 _logger = None #global logger reference
 
@@ -21,7 +21,7 @@ def get_logger():
             os.makedirs("logs")
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        log_file  = f"test_runs/{EXECUTION_TIMESTAMP}/logs/test.log"
+        log_file  = f"test_runs/{get_execution_timestamp()}/logs/test.log"
         file_handler = logging.FileHandler(log_file)
         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
         file_handler.setFormatter(formatter)

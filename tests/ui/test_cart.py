@@ -3,9 +3,12 @@ from pages.product_page import ProductPage
 from pages.cart_page import CartPage
 from utils.config import BASE_URL, EMAIL, PASSWORD
 from utils.logger import get_logger
+import pytest
+
 
 logger = get_logger()
-
+@pytest.mark.ui
+@pytest.mark.smoke
 def test_add_to_cart(driver):
 
     logger.info("Starting test_cart..")

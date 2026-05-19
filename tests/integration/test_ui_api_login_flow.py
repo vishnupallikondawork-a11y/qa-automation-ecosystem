@@ -7,7 +7,7 @@ from utils.api_utils import APIUtils
 
 
 @pytest.mark.integration
-@pytest.mark.smoke
+@pytest.mark.regression
 
 def test_ui_api_login_flow(driver):
 
