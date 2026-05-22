@@ -55,10 +55,10 @@ def pytest_runtest_makereport(item):
 
             driver.save_screenshot(file_name)
 
-def pytest_configure(config):
+# def pytest_configure(config):
 
-    report_path = (
-        f"{REPORT_FOLDER}/report.html"
-    )
+#     report_path = (
+#         f"{REPORT_FOLDER}/report.html"
+#     )
 
-    config.option.htmlpath = report_path
+#     config.option.htmlpath = report_path
