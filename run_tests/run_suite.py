@@ -33,9 +33,17 @@ def run_suite(suite_name):
     os.environ["EXECUTION_TIMESTAMP"] = (
         execution_timestamp
     )
+    report_path = (
+    f"test_runs/"
+    f"{execution_timestamp}/"
+    f"reports/report.html"
+)
     command = (
-        f"python -m pytest -m {SUITES[suite_name]} --self-contained-html"
-    )
+    f"python -m pytest "
+    f"-m {SUITES[suite_name]} "
+    f"--html={report_path} "
+    f"--self-contained-html"
+)
 
     print(
         f"\n Executing {suite_name} suite... \n"
@@ -43,11 +51,7 @@ def run_suite(suite_name):
     os.system(command)
     latest_report_dir = Path("latest_reports")
     latest_report_dir.mkdir(exist_ok= True)
-    source_report = Path(
-        f"test_runs/"
-    f"{execution_timestamp}/"
-    f"reports/report.html"
-    )
+    source_report = Path(report_path)
     destination_report = (
     latest_report_dir /
     "report.html"
