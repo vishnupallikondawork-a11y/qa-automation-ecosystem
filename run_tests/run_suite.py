@@ -13,6 +13,8 @@ sys.path.append(
 from utils.execution_config import SUITES
 from utils.reporting_utils import ReportingUtils
 from datetime import datetime
+from pathlib import Path
+import shutil
 def run_suite(suite_name):
 
     if suite_name not in SUITES:
@@ -39,7 +41,23 @@ def run_suite(suite_name):
         f"\n Executing {suite_name} suite... \n"
     )
     os.system(command)
-    
+    latest_report_dir = Path("latest_reports")
+    latest_report_dir.mkdir(exist_ok= True)
+    source_report = Path(
+        f"test_runs/"
+    f"{execution_timestamp}/"
+    f"reports/report.html"
+    )
+    destination_report = (
+    latest_report_dir /
+    "report.html"
+    )
+    if source_report.exists():
+
+        shutil.copy(
+            source_report,
+            destination_report
+        )
     ReportingUtils.generate_execution_summary(suite_name)
     ReportingUtils.update_execution_history(suite_name)
 
