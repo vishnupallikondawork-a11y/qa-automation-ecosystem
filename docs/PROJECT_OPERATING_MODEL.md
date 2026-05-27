@@ -49,10 +49,15 @@ UI + API + DB + Playwright + CI/CD + Reporting + Deployment ecosystem
 
 # Current Status
 Current Phase:
-Phase 4
+Phase 5
 
 Current Epic:
-Epic 2 — Test Suite Strategy & Execution Management
+Epic 4 — Test Suite Strategy & Execution Management
 
-Current Story:
-STORY 2 - Regression suite architecture
+# Epic , Story level implementation rules
+1. create epic
+2. create current story in jira
+3. create git branch for that specific task if needed
+4. learning and implementation should go hand in hand
+5. review changes proper and do git push properly
+6. update epic and story status
