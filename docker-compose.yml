@@ -7,12 +7,19 @@ services:
     ports:
       - "4444:4444"
 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/wd/hub/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   qa-automation:
 
     build: .
 
     depends_on:
-      - selenium-chrome
+      selenium-chrome:
+        condition: service_healthy
 
     volumes:
       - ./test_runs:/app/test_runs
