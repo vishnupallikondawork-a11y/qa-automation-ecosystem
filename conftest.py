@@ -3,6 +3,7 @@ from selenium import webdriver
 import os
 from datetime import datetime
 from utils.execution_context import get_execution_timestamp
+from selenium.webdriver.chrome.options import Options
 
 RUN_FOLDER = (
     f"test_runs/{get_execution_timestamp()}"
@@ -27,7 +28,16 @@ os.makedirs(REPORT_FOLDER, exist_ok=True)
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
+    chrome_options = Options()
+
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    driver = webdriver.Remote(
+        command_executor="http://selenium-chrome:4444/wd/hub",
+        options=chrome_options
+    )
     driver.maximize_window()
     yield driver
     driver.quit()
