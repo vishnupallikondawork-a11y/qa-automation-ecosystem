@@ -23,5 +23,6 @@ services:
 
     volumes:
       - ./test_runs:/app/test_runs
+      - ./latest_reports:/app/latest_reports
 
     command: ["smoke"]
